@@ -1,8 +1,8 @@
 # Reference Links
-https://www.mediawiki.org/wiki/Manual:Upgrading
-https://www.mediawiki.org/wiki/Manual:Configuration_settings
-https://www.mediawiki.org/wiki/Manual:Backing_up_a_wiki
-https://www.mediawiki.org/wiki/Manual:DumpBackup.php
+* https://www.mediawiki.org/wiki/Manual:Upgrading
+* https://www.mediawiki.org/wiki/Manual:Configuration_settings
+* https://www.mediawiki.org/wiki/Manual:Backing_up_a_wiki
+* https://www.mediawiki.org/wiki/Manual:DumpBackup.php
 
 # Backup steps
 1. export BACKUP_DIR=/path/to/backup/dir
