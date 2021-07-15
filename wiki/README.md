@@ -6,24 +6,23 @@
 
 # Backup steps
 1. export BACKUP_DIR=/path/to/backup/dir
-2. export WIKI_PATH=/path/to/the/root/dir/containing/mediawiki
-3. Turn your wiki to read only by uncommenting
-   `#$wgReadOnly = 'Site Maintenance';` that is found at the end of
-   LocalSettings.php
+2. export WIKI_PATH=/path/to/the/root/dir/containing/wiki.opencog.org
+3. Turn your wiki to read only by uncommenting the line that starts with
+   `#$wgReadOnly`
 4. mkdir -p $BACKUP_DIR/$(date +'%F')
 5. Database backup
 
     ```
-    mysqldump -u opencog_media -B opencog_mediawik -p | bzip2 -c \
-        > $BACKUP_DIR/$(date +'%F')/opencog-mediawiki-database-$(date +'%F').sql.bz2
+    mysqldump -u opencog_media -B opencog_mediawik -p | gzip -c \
+        > $BACKUP_DIR/$(date +'%F')/opencog-mediawiki-database-$(date +'%F').sql.gz
     ```
 
 6. XML dump of wiki
 
     ```
     cd $WIKI_PATH/wikihome/maintenance
-    php -d error_reporting=E_ERROR dumpBackup.php --full | bzip2 -c \
-        > $BACKUP_DIR/$(date +'%F')/opencog-mediawiki-xml-full-dump-$(date +'%F').xml.bz2
+    php -d error_reporting=E_ERROR dumpBackup.php --full | gzip -c \
+        > $BACKUP_DIR/$(date +'%F')/opencog-mediawiki-xml-full-dump-$(date +'%F').xml.gz
     ```
 
 7. Wiki directory contents.
@@ -31,11 +30,9 @@
     ```
     cd $WIKI_PATH
     cd ..
-    tar --exclude-vcs -cvjf \
-        $BACKUP_DIR/$(date +'%F')/opencog-mediawiki-wiki-root-dir-$(date +'%F').tar.bz2 wiki
+    tar --exclude-vcs -cvzf \
+        $BACKUP_DIR/$(date +'%F')/opencog-mediawiki-wiki-root-dir-$(date +'%F').tar.gz wiki.opencog.org
     ```
-
-8. Comment `$wgReadOnly = 'Site Maintenance';`
 
 # Update Steps
   See https://www.mediawiki.org/wiki/Manual:Upgrading#Unpack_the_new_files
